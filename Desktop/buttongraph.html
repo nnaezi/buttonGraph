@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <title>ButtonGraph</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .wrap {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 500px;
+            height: 695px;
+            background: #f0f;
+            margin: 0 auto;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .graph {
+            width:100%;
+            height:500px;
+            position: relative;
+        }
+        .graph>* {
+            position: absolute;
+            top: 50%;
+            left:50%;
+            transform: translate(-50%, -50%);
+        }
+        .graph>svg {
+            width: 100%;
+            height:100%;
+        }
+        .graph .background {
+            width:100%;
+            height:100%;
+            background: rgba(255, 255, 255, 0.65);
+            transition: all .5s ease-in-out;
+        }
+        /* .graph .background.type0 {
+            clip-path: polygon(50% 5%, 89% 42%, 60% 65.5%, 31% 80.5%, 28% 48%);
+        }
+        .graph .background.type1{
+            clip-path: polygon(50% 40%, 72% 47.5%, 68.5% 80.5%, 26.5% 88%, 3% 39.5%);
+        }
+        .graph .background.type2{
+            clip-path: polygon(50% 14%, 64% 50%, 79% 95%, 37% 74%, 20% 45%);
+        }
+        .graph .background.type3{
+            clip-path: polygon(50% 23%, 88.5% 42.5%, 64% 73.5%, 31.5% 80.5%, 28% 48%);
+        } */
+        .graph>.dots {
+            width:100%;
+            height:100%;
+        }
+        .dots>* {
+            width:10px;
+            height:10px;
+            border-radius: 50%;
+            background: rgb(0 0 0);
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 54.5%;
+            transform: translate(-50%, -50%);
+            transition: all .5s ease-in-out;
+        }
+        .dots.type0>span:nth-of-type(1){transform: translate(-50%,-2490%);}
+        .dots.type0>span:nth-of-type(2){transform: translate(1875%,-670%);}
+        .dots.type0>span:nth-of-type(3){transform: translate(385%,530%);}
+        .dots.type0>span:nth-of-type(4){transform: translate(-980%,1230%);}
+        .dots.type0>span:nth-of-type(5){transform: translate(-1145%,-390%);}
+        
+        .dots.type1>span:nth-of-type(1){transform:translate(-50%,-770%);}
+        .dots.type1>span:nth-of-type(2){transform:translate(1045%,-410%);}
+        .dots.type1>span:nth-of-type(3){transform:translate(885%,1230%);}
+        .dots.type1>span:nth-of-type(4){transform:translate(-1230%,1575%);}
+        .dots.type1>span:nth-of-type(5){transform:translate(-2365%,-795%);}
+
+        .dots.type2>span:nth-of-type(1){transform:translate(-50%,-2070%);}
+        .dots.type2>span:nth-of-type(2){transform:translate(630%,-265%);}
+        .dots.type2>span:nth-of-type(3){transform:translate(1385%,1930%);}
+        .dots.type2>span:nth-of-type(4){transform:translate(-735%,880%);}
+        .dots.type2>span:nth-of-type(5){transform:translate(-1545%,-530%);}
+
+        .dots.type3>span:nth-of-type(1){transform:translate(-50%,-1640%);}
+        .dots.type3>span:nth-of-type(2){transform: translate(1875%,-670%);}
+        .dots.type3>span:nth-of-type(3){transform:translate(625%,880%);}
+        .dots.type3>span:nth-of-type(4){transform: translate(-980%,1230%);}
+        .dots.type3>span:nth-of-type(5){transform: translate(-1145%,-390%);}
+        .btnList {
+            position: relative;
+            display: flex;
+            width: 100%;
+            justify-content: space-evenly;
+        }
+        .btnList>dt {
+            padding-bottom:10px;
+            transition:all .5s ease-in-out;
+            cursor: pointer;
+        }
+        .btnList>dt.active {
+            border-bottom:2px solid #000;
+        }
+        .btnList>dd {
+            position: absolute;
+            top: 165%;
+            left: 10%;
+            width:80%;
+            text-align: center;
+            transform: translateY(150px);
+            transition:all .5s ease-in-out;
+        }
+        .btnList>dd.active {
+            transform: translateY(0px);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="graph">
+            <svg viewBox="0 0 500 500">
+                <polygon fill="none" stroke="#F9FF00" stroke-width="4.9152" stroke-miterlimit="10" points="105.543,472.294 16.267,197.526 
+                    250,27.706 483.732,197.526 394.452,472.294 "/>
+                <polygon fill="none" stroke="#F9FF00" stroke-width="4.9247" stroke-miterlimit="10" points="130.743,437.655 57.041,210.82 
+                    250,70.624 442.958,210.819 369.252,437.655 "/>
+                <polygon fill="none" stroke="#F9FF00" stroke-width="4.9247" stroke-miterlimit="10" points="156.172,402.655 98.186,224.188 
+                    250,113.887 401.813,224.188 343.823,402.655 "/>
+                <polygon fill="none" stroke="#F9FF00" stroke-width="4.9247" stroke-miterlimit="10" points="181.601,367.655 139.33,237.557 
+                    250,157.149 360.667,237.556 318.395,367.655 "/>
+                <polygon fill="none" stroke="#F9FF00" stroke-width="4.9247" stroke-miterlimit="10" points="207.03,332.655 180.475,250.926 
+                    250,200.412 319.522,250.924 292.966,332.655 "/>
+            </svg>
+            <div class="background type0"></div>
+            <div class="dots type0">
+                <span class="dot01"></span>
+                <span class="dot02"></span>
+                <span class="dot03"></span>
+                <span class="dot04"></span>
+                <span class="dot05">;</span>
+            </div>
+        </div>
+        <dl class="btnList">
+            <dt class="active"><h2>button01</h2></dt>
+            <dd class="active"><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem ducimus at animi corporis mollitia eum quisquam, vero quae esse consequatur in quo, unde sed cum? Odio doloribus repellat nulla obcaecati.</p></dd>
+            <dt><h2>button02</h2></dt>
+            <dd><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem ducimus at animi corporis mollitia eum quisquam, vero quae esse consequatur in quo, unde sed cum? Odio doloribus repellat nulla obcaecati.</p></dd>
+            <dt><h2>button03</h2></dt>
+            <dd><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem ducimus at animi corporis mollitia eum quisquam, vero quae esse consequatur in quo, unde sed cum? Odio doloribus repellat nulla obcaecati.</p></dd>
+            <dt><h2>button04</h2></dt>
+            <dd><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Autem ducimus at animi corporis mollitia eum quisquam, vero quae esse consequatur in quo, unde sed cum? Odio doloribus repellat nulla obcaecati.</p></dd>
+        </dl>
+    </div>
+</body>
+<script>
+    // let graph = [
+    //     "polygon(50% 5%, 89% 42%, 60% 65.5%, 31% 80.5%, 28% 48%)",
+    //     "polygon(50% 40%, 72% 47.5%, 68.5% 80.5%, 26.5% 88%, 3% 39.5%)",
+    //     "polygon(50% 14%, 64% 50%, 79% 95%, 37% 74%, 20% 45%)",
+    //     "polygon(50% 23%, 88.5% 42.5%, 64% 73.5%, 31.5% 80.5%, 28% 48%)"
+    //     ]
+    // 배열을 사용해서
+
+    let graph = [
+        {
+            type1: "polygon(50% 5%, 89% 42%, 60% 65.5%, 31% 80.5%, 28% 48%)"
+        },
+        {
+            type2: "polygon(50% 40%, 72% 47.5%, 68.5% 80.5%, 26.5% 88%, 3% 39.5%)"
+        },
+        {
+            type3: "polygon(50% 14%, 64% 50%, 79% 95%, 37% 74%, 20% 45%)"
+        },
+        {
+            type4:  "polygon(50% 23%, 88.5% 42.5%, 64% 73.5%, 31.5% 80.5%, 28% 48%)"
+        },
+    ]
+    // 배열+객체 사용해서
+    let idx;
+
+    $(`.btnList>dt`).click(function(){
+        // console.log($(this).index());
+        $(`.btnList>dt`).removeClass(`active`);
+        $(`.btnList>dd`).removeClass(`active`);
+        $(this).addClass(`active`);
+        $(this).next().addClass(`active`);
+        idx = $(this).index()/2;
+        
+        // $(`.graph>.background`).removeClass(`type0`);
+        // $(`.graph>.background`).removeClass(`type1`);
+        // $(`.graph>.background`).removeClass(`type2`);
+        // $(`.graph>.background`).removeClass(`type3`);
+
+        // $(`.graph>.background`).css("clip-path", graph[idx])
+        // 배열
+
+        $(`.graph>.background`).css("clip-path", graph[idx].type1)
+        $(`.graph>.background`).css("clip-path", graph[idx].type2)
+        $(`.graph>.background`).css("clip-path", graph[idx].type3)
+        $(`.graph>.background`).css("clip-path", graph[idx].type4)
+        // 배열+객체
+        
+        $(`.graph>.dots`).removeClass(`type0`);
+        $(`.graph>.dots`).removeClass(`type1`);
+        $(`.graph>.dots`).removeClass(`type2`);
+        $(`.graph>.dots`).removeClass(`type3`);
+        $(`.graph>.background`).addClass(`type`+idx);
+        $(`.graph>.dots`).addClass(`type`+idx);
+
+        
+    });
+
+   
+</script>
+</html>
